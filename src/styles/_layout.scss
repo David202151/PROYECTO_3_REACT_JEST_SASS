@@ -1,0 +1,29 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+// Contenedor centrado de las páginas
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: v.$space-3;
+
+  @include m.respond-to(md) {
+    padding: v.$space-4;
+  }
+}
+
+// Rejilla responsiva de tarjetas: 2 → 3 → 4 columnas
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: v.$space-3;
+
+  @include m.respond-to(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include m.respond-to(lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
