@@ -27,3 +27,22 @@
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+// Título de cada página
+.page-title {
+  margin-bottom: v.$space-4;
+  text-align: center;
+  font-size: 1.75rem;
+  color: v.$color-secondary;
+
+  @include m.respond-to(md) {
+    font-size: 2.25rem;
+  }
+}
+
+// Mensajes de carga / error / lista vacía
+.status-message {
+  padding: v.$space-5 0;
+  text-align: center;
+  color: v.$color-text-muted;
+}

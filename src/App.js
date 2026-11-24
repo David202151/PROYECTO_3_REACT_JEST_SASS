@@ -1,17 +1,18 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchPokemons } from "./app/features/pokemon/pokemonSlice";
+import { Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import Team from "./pages/Team";
+import Detail from "./pages/Detail";
 
-function App() {
-  const dispatch = useDispatch(); 
-  useEffect(() => {
-    dispatch(fetchPokemons()); 
-  }, [dispatch]); 
+function App() { 
   return (
     <div className="App">
-      <header className="App-header">
-        <div>Hola Mundo</div>
-      </header>
+      <Header/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/pokemon/:name" element={<Detail />}/>
+      </Routes>
     </div>
   );
 }

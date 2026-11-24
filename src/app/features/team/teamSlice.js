@@ -7,8 +7,7 @@ const initialState = {
 };
 
 const getPokemonImage = (pokemon) => {
-
-	return pokemon.sprites?.front_default ?? null;
+	return pokemon.image ?? null;
 };
 
 const getPokemonTypes = (pokemon) => {

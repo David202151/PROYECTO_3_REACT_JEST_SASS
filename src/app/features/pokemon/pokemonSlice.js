@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import API_URL from '../../../config/api';
 
 export const fetchPokemons = createAsyncThunk(
 	'pokemon/fetchPokemons',
 	async (_, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				'https://pokeapi.co/api/v2/pokemon?limit=20'
+				`${API_URL}/?limit=20`
 			);
             const promesas = response.data.results.map(async (pokemon) => {
                 const pokemonResponse = await axios.get(pokemon.url);
@@ -16,7 +17,7 @@ export const fetchPokemons = createAsyncThunk(
 			return pokemons.map((pokemon) => ({
                 name: pokemon.name,
                 types: pokemon.types.map((type) => type.type.name),
-                image: pokemon.sprites.front_default,
+                image: pokemon.sprites.front_default
             }));
 		} catch (error) {
 			return rejectWithValue(

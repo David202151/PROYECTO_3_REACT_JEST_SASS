@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# Pokédex React - Armador de equipo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web hecha con React para explorar Pokémon y armar un equipo de hasta 6 integrantes. Los datos vienen de la [PokéAPI](https://pokeapi.co/), una API pública y gratuita.
 
-## Available Scripts
+Demo: _pendiente de publicar_
 
-In the project directory, you can run:
+## Funcionalidades
 
-### `npm start`
+- Listado de 20 Pokémon con imagen y tipos, cada tipo con su color.
+- Página de detalle de cada Pokémon con imagen, tipos, altura, peso y habilidades.
+- Armado de un equipo de máximo 6 Pokémon, sin repetidos.
+- Página "Mi equipo" para quitar integrantes o vaciar el equipo.
+- El equipo se guarda en el navegador (`localStorage`), por lo que no se pierde al recargar la página.
+- Estados de carga y de error en la lista y en el detalle.
+- Diseño responsive, pensado primero para móvil.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tecnologías
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React 19 con hooks (`useEffect`, `useParams`, `useSelector`, `useDispatch`) y hooks personalizados.
+- React Router para la navegación entre páginas.
+- Redux Toolkit para el estado global (`createSlice` y `createAsyncThunk`).
+- Axios para las peticiones a la API.
+- SASS con metodología BEM para los estilos.
+- Jest y React Testing Library para las pruebas.
 
-### `npm test`
+## Páginas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Ruta | Descripción |
+|---|---|
+| `/` | Listado de Pokémon y botón para agregar al equipo |
+| `/pokemon/:name` | Detalle de un Pokémon |
+| `/team` | Equipo actual |
 
-### `npm run build`
+## Requisitos
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js 18 o superior
+- npm
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Instalación y uso
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+# Instalar dependencias
+npm install
 
-### `npm run eject`
+# Iniciar en modo desarrollo (http://localhost:3000)
+npm start
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Generar la versión de producción
+npm run build
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Pruebas
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+# Modo interactivo
+npm test
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Una sola ejecución
+npm test -- --watchAll=false
+```
 
-## Learn More
+Las pruebas cubren:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Funciones: el reducer del equipo (`teamSlice`) y las funciones de `localStorage`.
+- Hook personalizado: `useTeamMember`.
+- Componentes: `PokemonCard`, `AddToTeamButton` y `Header`.
+- Páginas: `Home`, `Detail` y `Team`, con Axios simulado para no depender de la API real.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+El archivo `package.json` incluye una sección `jest` con un `moduleNameMapper`, y `src/setupTests.js` incluye un polyfill de `TextEncoder`. Ambos son necesarios para que Jest funcione con React Router v7 dentro de Create React App.
 
-### Code Splitting
+## Estructura del proyecto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+src/
+├── __tests__/          Pruebas, organizadas por tipo
+│   ├── app/
+│   ├── components/
+│   ├── hooks/
+│   └── pages/
+├── app/
+│   ├── features/
+│   │   ├── pokemon/    Slices de la lista y del detalle
+│   │   └── team/       Slice del equipo
+│   ├── localStorage.js Guardar y cargar el equipo
+│   └── store.js        Configuración del store de Redux
+├── components/         PokemonCard, AddToTeamButton, Header
+├── config/             URL base de la API
+├── hooks/              usePokemons, useTeamMember
+├── pages/              Home, Detail, Team
+├── services/           Peticiones a la API con Axios
+├── styles/             Estilos SASS (variables, mixins y componentes)
+├── test-utils.js       Utilidades para las pruebas
+├── App.js
+└── index.js
+```
 
-### Analyzing the Bundle Size
+## Notas sobre los datos
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+La PokéAPI entrega la altura en decímetros y el peso en hectogramos. La aplicación los divide entre 10 para mostrarlos en metros y kilogramos.
 
-### Making a Progressive Web App
+## Créditos
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Datos de [PokéAPI](https://pokeapi.co/). Proyecto desarrollado como práctica del curso de Front-end de EBAC.

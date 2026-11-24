@@ -19,6 +19,13 @@
     box-shadow: v.$shadow-hover;
   }
 
+  // Botón colocado dentro de la tarjeta mediante children:
+  // ocupa todo el ancho y queda siempre abajo, alineado entre tarjetas
+  > .btn {
+    margin-top: auto;
+    width: 100%;
+  }
+
   &__image {
     width: 96px;
     height: 96px;
@@ -28,11 +35,35 @@
       width: 120px;
       height: 120px;
     }
+
+    // Los sprites son pixel art: sin esto se ven borrosos al ampliarlos
+    image-rendering: pixelated;
+
+    // Imagen de respaldo (el Pokémon no tiene imagen)
+    &--not-found {
+      object-fit: cover;
+      border-radius: v.$radius;
+      opacity: 0.7;
+      filter: grayscale(0.4);
+      image-rendering: auto;
+    }
   }
 
+  // El nombre es un enlace al detalle del Pokémon
   &__name {
+    display: block;
     font-size: 1.05rem;
+    font-weight: 700;
+    text-align: center;
     text-transform: capitalize;
+    color: v.$color-text;
+    transition: color v.$transition;
+
+    &:hover,
+    &:focus-visible {
+      color: v.$color-primary;
+      text-decoration: underline;
+    }
   }
 
   &__types {
